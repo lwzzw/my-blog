@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const fileupload = require("express-fileupload");
 const PORT = require("./config").PORT;
 const API = require("./router/api");
 const cookieParser = require("cookie-parser");
