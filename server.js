@@ -39,7 +39,6 @@ app.use(
     })
 );
 app.use(express.static(initial_path));
-app.use(fileupload());
 app.use(cookieParser());
 
 app.use(API);
