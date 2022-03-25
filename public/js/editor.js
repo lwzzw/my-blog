@@ -1,60 +1,75 @@
-const blogTitleField = document.querySelector('.title');
-const articleFeild = document.querySelector('.article');
+const blogTitleField = document.querySelector(".title");
+const articleFeild = document.querySelector(".article");
 
 // banner
-const bannerImage = document.querySelector('#banner-upload');
+const bannerImage = document.querySelector("#banner-upload");
 const banner = document.querySelector(".banner");
 let bannerPath;
 
-const publishBtn = document.querySelector('.publish-btn');
-const uploadInput = document.querySelector('#image-upload');
+const publishBtn = document.querySelector(".publish-btn");
+const uploadInput = document.querySelector("#image-upload");
 
-bannerImage.addEventListener('change', () => {
+bannerImage.addEventListener("change", () => {
     uploadImage(bannerImage, "banner");
-})
+});
 
-uploadInput.addEventListener('change', () => {
+uploadInput.addEventListener("change", () => {
     uploadImage(uploadInput, "image");
-})
+});
 
 const uploadImage = (uploadFile, uploadType) => {
     const [file] = uploadFile.files;
-    if(file && file.type.includes("image")){
-        const formdata = new FormData();
-        formdata.append('image', file);
-
-        fetch('/upload', {
-            method: 'post',
-            body: formdata
-        }).then(res => res.json())
-        .then(data => {
-            if(uploadType == "image"){
-                addImage(data, file.name);
-            } else{
-                bannerPath = `${location.origin}/${data}`;
-                banner.style.backgroundImage = `url("${bannerPath}")`;
-            }
-        })
-    } else{
-        alert("upload Image only");
-    }
-}
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+        const imgbase64 = reader.result;
+        if (imgbase64 && imgbase64.includes("data:image")) {
+            upload(imgbase64).then((data) => {
+                console.log(data);
+                if (uploadType == "image") {
+                    addImage(data.url, file.name);
+                } else {
+                    bannerPath = data.url;
+                    banner.style.backgroundImage = `url("${bannerPath}")`;
+                }
+            });
+        } else {
+            alert("upload image only");
+        }
+    };
+};
 
 const addImage = (imagepath, alt) => {
     let curPos = articleFeild.selectionStart;
     let textToInsert = `\r![${alt}](${imagepath})\r`;
-    articleFeild.value = articleFeild.value.slice(0, curPos) + textToInsert + articleFeild.value.slice(curPos);
-}
+    articleFeild.value =
+        articleFeild.value.slice(0, curPos) +
+        textToInsert +
+        articleFeild.value.slice(curPos);
+};
 
-let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+];
 
-publishBtn.addEventListener('click', () => {
-    if(articleFeild.value.length && blogTitleField.value.length){
+publishBtn.addEventListener("click", () => {
+    if (articleFeild.value.length && blogTitleField.value.length) {
         // generating id
-        let letters = 'abcdefghijklmnopqrstuvwxyz';
+        let letters = "abcdefghijklmnopqrstuvwxyz";
         let blogTitle = blogTitleField.value.split(" ").join("-");
-        let id = '';
-        for(let i = 0; i < 4; i++){
+        let id = "";
+        for (let i = 0; i < 4; i++) {
             id += letters[Math.floor(Math.random() * letters.length)];
         }
 
@@ -62,18 +77,22 @@ publishBtn.addEventListener('click', () => {
         let docName = `${blogTitle}-${id}`;
         let date = new Date(); // for published at info
 
-        //access firstore with db variable;
-        db.collection("blogs").doc(docName).set({
+        postBlog({
+            id: docName,
             title: blogTitleField.value,
             article: articleFeild.value,
             bannerImage: bannerPath,
-            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+            publishedAt: `${date.getDate()} ${
+                months[date.getMonth()]
+            } ${date.getFullYear()}, ${("0" + date.getHours()).slice(-2)}:${(
+                "0" + date.getMinutes()
+            ).slice(-2)}:${("0" + date.getSeconds()).slice(-2)} `,
         })
-        .then(() => {
-            location.href = `/${docName}`;
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+            .then(() => {
+                location.href = `/${docName}`;
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     }
-})
+});

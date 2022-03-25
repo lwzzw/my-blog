@@ -4,13 +4,17 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start":"nodemon server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express-fileupload": "^1.2.1",
+    "cloudinary": "^1.29.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.0",
     "express.js": "^1.0.0",
-    "nodemon": "^2.0.12"
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.12",
+    "pg": "^8.7.3"
   }
 }
