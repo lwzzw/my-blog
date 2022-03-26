@@ -27,7 +27,7 @@
 
 .blog{
     width: 70vw;
-    min-width: 400px;
+    min-width: 100%;
     height: 100px;
     display: block;
     margin: auto;

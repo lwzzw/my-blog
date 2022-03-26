@@ -10,7 +10,7 @@ const { cloudinary } = require("./cloudinary/cloudinary");
 db.connect().then(function () {
     db.query(
         `
-    DROP TABLE IF EXISTS blog;
+    --DROP TABLE IF EXISTS blog;
     CREATE TABLE IF NOT EXISTS blog (
         blog_id text primary key,
         title text not null,
