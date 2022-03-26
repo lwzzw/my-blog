@@ -95,6 +95,6 @@ textarea::-webkit-scrollbar-thumb{
 .btn.grey{
     background: #a5a5a5;
     color: #fff;
-    margin-left: 20px;
+    margin: 0 20px;
     font-size: 14px;
 }

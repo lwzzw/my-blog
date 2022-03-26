@@ -62,6 +62,7 @@ app.get("/editor", verifyToken, (req, res) => {
 // upload link
 app.post("/upload", verifyToken, async (req, res) => {
     const img = req.body.img;
+    if (!img.includes("data:image")) return res.sendStatus(400);
     try {
         const uploadResponse = await cloudinary.uploader.upload(img, {
             upload_preset: "blog",
