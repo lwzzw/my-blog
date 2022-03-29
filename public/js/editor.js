@@ -25,7 +25,6 @@ const uploadImage = (uploadFile, uploadType) => {
         const imgbase64 = reader.result;
         if (imgbase64 && imgbase64.includes("data:image")) {
             upload(imgbase64).then((data) => {
-                console.log(data);
                 if (uploadType == "image") {
                     addImage(data.url, file.name);
                 } else {

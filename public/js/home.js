@@ -9,9 +9,7 @@ getAllBlog().then((blogs) => {
 });
 
 const createBlog = (data) => {
-    console.log(data.article);
     data.article = data.article.replace(/\!\[.+\.{1}\w{3}\]\(.+\.\w{3}\)/, "");
-    console.log(data.article);
     blogSection.innerHTML += `
     <div class="blog-card">
         <img src="${

@@ -1,6 +1,5 @@
 let blogId = decodeURI(location.pathname.split("/").pop());
 
-
 getBlog(blogId).then((blog) => {
     console.log(blog);
     setupBlog(blog);
@@ -10,18 +9,22 @@ const setupBlog = (data) => {
     const banner = document.querySelector(".banner");
     const blogTitle = document.querySelector(".title");
     const titleTag = document.querySelector("title");
-    const publish = document.querySelector(".published");
+    const publish = document.querySelector("#publishedat");
+    const publishby = document.querySelector("#publishedby");
 
     banner.style.backgroundImage = `url(${data.bannerimage}), url('/img/no_img.png')`;
+    banner.classList.remove("loader")
 
     titleTag.innerHTML += blogTitle.innerHTML = data.title;
-    publish.innerHTML += data.publishedat;
+    publish.textContent = "published at - " + data.publishedat;
+    publishby.textContent = "published by - " + data.publishedby;
 
     const article = document.querySelector(".article");
     addArticle(article, data.article);
 };
 
 const addArticle = (ele, data) => {
+    ele.textContent = "";
     data = data.split("\n").filter((item) => item.length);
     // console.log(data);
 

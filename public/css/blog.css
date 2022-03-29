@@ -12,11 +12,15 @@
 }
 
 .published{
-    margin: 20px 0 60px;
+    /* margin: 20px 0 60px; */
     padding: 0 10px;
     text-transform: capitalize;
     font-style: italic;
     color: rgba(0, 0, 0, 0.5);
+}
+
+.published:last-of-type{
+    margin: 20px 0 60px;
 }
 
 .published span{

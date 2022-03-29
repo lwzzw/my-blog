@@ -6,7 +6,7 @@ exports.connect = function () {
   var connectionString = DATABASE_URL;
   connection = new pg.Pool({
     connectionString,
-    max: 2,
+    max: 5,
   });
   if (connection) {
     console.log("Database connected");
