@@ -7,7 +7,6 @@ function login(userName, password, url) {
             password,
         }),
     }).then(function (response) {
-        console.log(url);
         if (response.status == 200) {
             location.href = url;
         } else {
@@ -80,6 +79,22 @@ function postBlog(blog) {
             return
         } else {
             throw new Error("Post failed");
+        }
+    });
+}
+
+function glogin(user){
+    fetch("/api-admin/glogin", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            token: user.credential,
+        }),
+    }).then(function (response) {
+        if (response.status == 200) {
+            location.href = url;
+        } else {
+            alert("login failed");
         }
     });
 }

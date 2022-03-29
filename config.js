@@ -8,3 +8,4 @@ exports.TOKENSECURE = process.env.TOKENSECURE || 'default';
 exports.CLOUD_NAME = process.env.CLOUD_NAME;
 exports.CLOUD_API_KEY = process.env.CLOUD_API_KEY;
 exports.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET;
+exports.GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;

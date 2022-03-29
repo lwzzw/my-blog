@@ -15,6 +15,7 @@
     <!-- MDB -->
     <link href="/css/login.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="js/api.js" defer></script>
     <script src="js/login.js" defer></script>
 </head>
@@ -36,7 +37,15 @@
 
             <!-- Submit button -->
             <button type="button" class="btn btn-primary btn-block mb-4" id="login">Sign in</button>
-            <button type="button" class="btn btn-primary btn-block mb-4" id="glogin">Sign in with Google</button>
+            <!-- <button type="button" class="btn btn-primary btn-block mb-4" id="glogin">Sign in with Google</button> -->
+            <!-- google login  -->
+            <div id="g_id_onload" data-client_id="<%=clientid%>" data-context="signin" data-ux_mode="popup"
+                data-callback="glogin" data-auto_select="true">
+            </div>
+
+            <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
+                data-text="signin" data-size="large" data-logo_alignment="left">
+            </div>
         </form>
     </div>
 </body>
